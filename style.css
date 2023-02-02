@@ -60,6 +60,15 @@ i:hover {
   height: 40%;
 }
 
+.top button {
+  display: none;
+}
+
+.top button.visible {
+  display: block;
+  margin: auto;
+}
+
 .timer {
   background-color: white;
   width: 80px;
@@ -84,13 +93,13 @@ i:hover {
 .bottom {
   height: 60%;
   position: relative;
+  text-align: left;
 }
 
 .result {
   width: 300px;
   height: 120px;
-  margin: auto;
-  background-color: rgba(0, 0, 0, 0.459);
+  background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -98,6 +107,14 @@ i:hover {
   color: white;
   padding: 16px 0;
   border-radius: 10px;
+  display: none;
+  text-align: center;
+  z-index: 3;
+}
+
+.result.visible {
+  display: block;
+  margin: auto;
 }
 
 .replay {
@@ -110,4 +127,16 @@ i:hover {
   margin: 0;
   font-size: 32px;
   margin-top: 10px;
+}
+
+.cat,
+.penguin {
+  opacity: 0;
+  cursor: pointer;
+  pointer-events: none;
+  position: absolute;
+}
+
+.penguin {
+  height: 120px;
 }
