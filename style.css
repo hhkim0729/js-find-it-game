@@ -39,10 +39,29 @@ i:hover {
 .title {
   color: aqua;
   background-color: blue;
+  font-size: 2rem;
 }
 
 .description {
   color: white;
+}
+
+.description em {
+  text-decoration: underline 3px solid aqua;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.help_img {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 2px solid blue;
+  margin-top: 4px;
+}
+
+.help_img.visible {
+  display: block;
 }
 
 .background {

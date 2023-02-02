@@ -1,5 +1,6 @@
 'use strict';
 
+const description = document.querySelector('.description');
 const playBtn = document.querySelector('.play');
 const stopBtn = document.querySelector('.stop');
 const timer = document.querySelector('.timer');
@@ -18,6 +19,7 @@ addEventListener('load', () => {
   const catRect = cats[0].getBoundingClientRect();
   const maxTop = bottomRect.height - catRect.height;
   const maxLeft = bottomRect.width - catRect.width;
+  const descRect = description.getBoundingClientRect();
 
   let time = INITIAL_TIME;
   let count = 10;
@@ -66,6 +68,20 @@ addEventListener('load', () => {
     time = INITIAL_TIME;
     count = 10;
   }
+
+  description.addEventListener('mouseover', (e) => {
+    const type = e.target.dataset.type;
+    if (type && e.target.nodeName === 'EM') {
+      const img = description.querySelector(`.help_img[data-type='${type}'`);
+      img.classList.add('visible');
+      img.style.transform = `translateX(${e.clientX - descRect.x}px)`;
+    }
+  });
+
+  description.addEventListener('mouseout', ({ target }) => {
+    const visibleImg = description.querySelector('.help_img.visible');
+    visibleImg && visibleImg.classList.remove('visible');
+  });
 
   playBtn.addEventListener('click', () => {
     startGame();
