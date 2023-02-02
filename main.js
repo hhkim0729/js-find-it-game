@@ -12,6 +12,12 @@ const bottom = document.querySelector('.bottom');
 const cats = document.querySelectorAll('.cat');
 const penguins = document.querySelectorAll('.penguin');
 
+const bgMusic = new Audio('/sound/bg.mp3');
+const catSound = new Audio('/sound/cat.mp3');
+const penguinSound = new Audio('/sound/penguin.mp3');
+const alertSound = new Audio('/sound/alert.wav');
+const winSound = new Audio('/sound/win.mp3');
+
 const INITIAL_TIME = 10;
 
 addEventListener('load', () => {
@@ -28,7 +34,7 @@ addEventListener('load', () => {
   function setTimer() {
     timer.innerHTML = `0:${time--}`;
     if (time < 0) {
-      finishGame('YOU LOST!');
+      finishGame('YOU LOST!', alertSound);
     }
   }
 
@@ -41,6 +47,10 @@ addEventListener('load', () => {
   }
 
   function startGame() {
+    // Play music
+    bgMusic.currentTime = 0;
+    bgMusic.play();
+
     // Hide play button and show stop button
     playBtn.classList.remove('visible');
     stopBtn.classList.add('visible');
@@ -49,7 +59,6 @@ addEventListener('load', () => {
     resultBox.classList.remove('visible');
 
     // Start timer
-    console.log(time);
     setTimer();
     interval = setInterval(setTimer, 1000);
 
@@ -61,8 +70,10 @@ addEventListener('load', () => {
     penguins.forEach(displayRandom);
   }
 
-  function finishGame(message) {
+  function finishGame(message, sound) {
     clearInterval(interval);
+    bgMusic.pause();
+    sound.play();
     resultMessage.innerHTML = message;
     resultBox.classList.add('visible');
     time = INITIAL_TIME;
@@ -88,7 +99,7 @@ addEventListener('load', () => {
   });
 
   stopBtn.addEventListener('click', () => {
-    finishGame('Replay?');
+    finishGame('Replay?', alertSound);
   });
 
   replayBtn.addEventListener('click', () => {
@@ -101,13 +112,15 @@ addEventListener('load', () => {
     const type = target.dataset.type;
     if (type) {
       if (type === 'penguin') {
-        finishGame('YOU LOST!');
+        penguinSound.play();
+        finishGame('YOU LOST!', alertSound);
       } else if (type === 'cat') {
+        catSound.play();
         counter.innerHTML = --count;
         target.style.opacity = 0;
         target.style.pointerEvents = 'none';
         if (count === 0) {
-          finishGame('YOU WON!');
+          finishGame('YOU WON!', winSound);
         }
       }
     }
