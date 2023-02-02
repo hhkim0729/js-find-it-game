@@ -1,0 +1,113 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+button {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  background-color: aqua;
+  border: 2px solid blue;
+  border-radius: 4px;
+  font-size: 32px;
+  color: blue;
+}
+
+i {
+  animation: all 300ms ease-in;
+}
+
+i:hover {
+  transform: scale(1.1);
+}
+
+.container {
+  margin: auto;
+  width: 800px;
+  text-align: center;
+}
+
+.header {
+  padding: 16px;
+}
+
+.title {
+  color: aqua;
+  background-color: blue;
+}
+
+.description {
+  color: white;
+}
+
+.background {
+  width: 100%;
+  height: 450px;
+  background: url(/img/bg.jpg) center/cover no-repeat;
+  border: 4px solid blue;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.top {
+  height: 40%;
+}
+
+.timer {
+  background-color: white;
+  width: 80px;
+  margin: 10px auto;
+  font-size: 24px;
+  color: blue;
+  border: 2px solid blue;
+  border-radius: 4px;
+}
+
+.counter {
+  width: 50px;
+  height: 50px;
+  margin: auto;
+  font-size: 32px;
+  line-height: 50px;
+  border-radius: 50%;
+  background-color: blue;
+  color: white;
+}
+
+.bottom {
+  height: 60%;
+  position: relative;
+}
+
+.result {
+  width: 300px;
+  height: 120px;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.459);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  padding: 16px 0;
+  border-radius: 10px;
+}
+
+.replay {
+  background-color: aqua;
+  border: 2px solid blue;
+  border-radius: 4px;
+}
+
+.message {
+  margin: 0;
+  font-size: 32px;
+  margin-top: 10px;
+}
