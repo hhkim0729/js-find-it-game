@@ -12,11 +12,11 @@ const bottom = document.querySelector('.bottom');
 const cats = document.querySelectorAll('.cat');
 const penguins = document.querySelectorAll('.penguin');
 
-const bgMusic = new Audio('/sound/bg.mp3');
-const catSound = new Audio('/sound/cat.mp3');
-const penguinSound = new Audio('/sound/penguin.mp3');
-const alertSound = new Audio('/sound/alert.wav');
-const winSound = new Audio('/sound/win.mp3');
+const bgMusic = new Audio('sound/bg.mp3');
+const catSound = new Audio('sound/cat.mp3');
+const penguinSound = new Audio('sound/penguin.mp3');
+const alertSound = new Audio('sound/alert.wav');
+const winSound = new Audio('sound/win.mp3');
 
 const INITIAL_TIME = 10;
 
