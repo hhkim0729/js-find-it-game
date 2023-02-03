@@ -116,6 +116,7 @@ addEventListener('load', () => {
         finishGame('YOU LOST!', alertSound);
       } else if (type === 'cat') {
         catSound.play();
+        catSound.currentTime = 0;
         counter.innerHTML = --count;
         target.style.opacity = 0;
         target.style.pointerEvents = 'none';
