@@ -150,9 +150,7 @@ i:hover {
 
 .cat,
 .penguin {
-  opacity: 0;
   cursor: pointer;
-  pointer-events: none;
   position: absolute;
 }
 
