@@ -26,6 +26,17 @@ i:hover {
   transform: scale(1.1);
 }
 
+em {
+  text-decoration: underline 3px solid aqua;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
 .container {
   margin: auto;
   width: 800px;
@@ -44,12 +55,6 @@ i:hover {
 
 .description {
   color: white;
-}
-
-.description em {
-  text-decoration: underline 3px solid aqua;
-  text-underline-offset: 4px;
-  cursor: pointer;
 }
 
 .help_img {
@@ -156,4 +161,14 @@ i:hover {
 
 .penguin {
   height: 120px;
+}
+
+.footer {
+  margin-top: 16px;
+  color: white;
+}
+
+.footer i {
+  cursor: pointer;
+  font-size: 32px;
 }
