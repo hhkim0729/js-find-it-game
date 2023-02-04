@@ -33,6 +33,10 @@ addEventListener('load', () => {
     sound.play();
   }
 
+  function pauseSound(sound) {
+    sound.pause();
+  }
+
   function clearItems() {
     const cats = bottom.querySelectorAll('.cat');
     const penguins = bottom.querySelectorAll('.penguin');
@@ -49,6 +53,10 @@ addEventListener('load', () => {
     } else {
       playBtn.style.visibility = 'visible';
     }
+  }
+
+  function hideStopButton() {
+    playBtn.style.visibility = 'hidden';
   }
 
   function setTimerText() {
@@ -80,35 +88,41 @@ addEventListener('load', () => {
     }
   }
 
-  function startGame() {
-    started = true;
-
-    playSound(bgMusic);
-    clearItems();
-    showStopButton();
-
+  function startTimer() {
     setTimerText();
     interval = setInterval(setTimerText, 1000);
     counter.innerText = count;
+  }
 
+  function initGame() {
+    time = INITIAL_TIME;
+    count = CAT_COUNT;
+
+    clearItems();
     addItem('cat', CAT_COUNT, 'img/cat.png');
     addItem('penguin', PENGUIN_COUNT, 'img/penguin.png');
   }
 
-  function finishGame(message, sound) {
-    started = false;
-
-    clearInterval(interval);
-
-    bgMusic.pause();
-    playSound(sound);
-
-    playBtn.style.visibility = 'hidden';
+  function showResultBox(message) {
     resultMessage.innerHTML = message;
     resultBox.classList.add('visible');
+  }
 
-    time = INITIAL_TIME;
-    count = CAT_COUNT;
+  function startGame() {
+    started = true;
+    initGame();
+    playSound(bgMusic);
+    showStopButton();
+    startTimer();
+  }
+
+  function finishGame(message, sound) {
+    started = false;
+    clearInterval(interval);
+    pauseSound(bgMusic);
+    playSound(sound);
+    hideStopButton();
+    showResultBox(message);
   }
 
   description.addEventListener('mouseover', (e) => {
