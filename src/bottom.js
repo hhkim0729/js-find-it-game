@@ -43,7 +43,7 @@ export default class Bottom {
     }
   }
 
-  onClick({ target }) {
+  onClick = ({ target }) => {
     const type = target.dataset.type;
     if (type) {
       if (type === 'penguin') {
@@ -55,5 +55,5 @@ export default class Bottom {
         this.onItemClick && this.onItemClick(type);
       }
     }
-  }
+  };
 }
