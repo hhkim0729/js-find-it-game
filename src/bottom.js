@@ -9,6 +9,8 @@ export default class Bottom {
     this.bottom = document.querySelector('.bottom');
     this.bottomRect = this.bottom.getBoundingClientRect();
     this.bottom.addEventListener('click', this.onClick);
+    this.bottom.addEventListener('mouseover', this.onMouseover);
+    this.bottom.addEventListener('mouseout', this.onMouseout);
   }
 
   init() {
@@ -54,6 +56,20 @@ export default class Bottom {
         target.remove();
         this.onItemClick && this.onItemClick(type);
       }
+    }
+  };
+
+  onMouseover = ({ target }) => {
+    const type = target.dataset.type;
+    if (type) {
+      target.style.transform += 'scale(1.1)';
+    }
+  };
+
+  onMouseout = ({ target }) => {
+    const type = target.dataset.type;
+    if (type) {
+      target.style.transform = target.style.transform.replace('scale(1.1)', '');
     }
   };
 }

@@ -120,18 +120,4 @@ addEventListener('load', () => {
       startGame();
     }
   });
-
-  // bottom.addEventListener('mouseover', ({ target }) => {
-  //   const type = target.dataset.type;
-  //   if (type) {
-  //     target.style.transform += 'scale(1.1)';
-  //   }
-  // });
-
-  // bottom.addEventListener('mouseout', ({ target }) => {
-  //   const type = target.dataset.type;
-  //   if (type) {
-  //     target.style.transform = target.style.transform.replace('scale(1.1)', '');
-  //   }
-  // });
 });
