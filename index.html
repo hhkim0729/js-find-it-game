@@ -10,7 +10,7 @@
       crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="style.css" />
-    <script src="main.js" defer></script>
+    <script type="module" src="src/main.js" defer></script>
   </head>
   <body>
     <section class="container">
@@ -34,14 +34,13 @@
           <div class="timer">0:0</div>
           <div class="counter">0</div>
         </div>
-        <div class="bottom">
-          <div class="result">
-            <button class="replay">
-              <i class="fa-sharp fa-solid fa-rotate-left"></i>
-            </button>
-            <p class="message"></p>
-          </div>
-        </div>
+        <div class="bottom"></div>
+      </div>
+      <div class="result">
+        <button class="replay">
+          <i class="fa-sharp fa-solid fa-rotate-left"></i>
+        </button>
+        <p class="message"></p>
       </div>
       <footer class="footer">
         <a href="https://github.com/hhkim0729/js-find-it-game" target="_blank">

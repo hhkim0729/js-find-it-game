@@ -1,12 +1,11 @@
 'use strict';
 
+import Result from './result.js';
+
 const description = document.querySelector('.description');
 const playBtn = document.querySelector('.play');
 const timer = document.querySelector('.timer');
 const counter = document.querySelector('.counter');
-const resultBox = document.querySelector('.result');
-const replayBtn = document.querySelector('.replay');
-const resultMessage = document.querySelector('.message');
 const bottom = document.querySelector('.bottom');
 
 const bgMusic = new Audio('sound/bg.mp3');
@@ -27,6 +26,7 @@ let interval = null;
 addEventListener('load', () => {
   const bottomRect = bottom.getBoundingClientRect();
   const descRect = description.getBoundingClientRect();
+  const gameResult = new Result();
 
   function playSound(sound) {
     sound.currentTime = 0;
@@ -35,14 +35,6 @@ addEventListener('load', () => {
 
   function pauseSound(sound) {
     sound.pause();
-  }
-
-  function clearItems() {
-    const cats = bottom.querySelectorAll('.cat');
-    const penguins = bottom.querySelectorAll('.penguin');
-
-    cats && cats.forEach((cat) => cat.remove());
-    penguins && penguins.forEach((penguin) => penguin.remove());
   }
 
   function showStopButton() {
@@ -98,14 +90,9 @@ addEventListener('load', () => {
     time = INITIAL_TIME;
     count = CAT_COUNT;
 
-    clearItems();
+    bottom.innerHTML = '';
     addItem('cat', CAT_COUNT, 'img/cat.png');
     addItem('penguin', PENGUIN_COUNT, 'img/penguin.png');
-  }
-
-  function showResultBox(message) {
-    resultMessage.innerHTML = message;
-    resultBox.classList.add('visible');
   }
 
   function startGame() {
@@ -122,7 +109,7 @@ addEventListener('load', () => {
     pauseSound(bgMusic);
     playSound(sound);
     hideStopButton();
-    showResultBox(message);
+    gameResult.show(message);
   }
 
   description.addEventListener('mouseover', (e) => {
@@ -147,9 +134,8 @@ addEventListener('load', () => {
     }
   });
 
-  replayBtn.addEventListener('click', () => {
+  gameResult.setClickListener(() => {
     startGame();
-    resultBox.classList.remove('visible');
   });
 
   bottom.addEventListener('click', ({ target }) => {
