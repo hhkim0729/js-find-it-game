@@ -1,12 +1,12 @@
 'use strict';
 
 import Result from './result.js';
+import Bottom from './bottom.js';
 
 const description = document.querySelector('.description');
 const playBtn = document.querySelector('.play');
 const timer = document.querySelector('.timer');
 const counter = document.querySelector('.counter');
-const bottom = document.querySelector('.bottom');
 
 const bgMusic = new Audio('sound/bg.mp3');
 const catSound = new Audio('sound/cat.mp3');
@@ -24,17 +24,31 @@ let count = CAT_COUNT;
 let interval = null;
 
 addEventListener('load', () => {
-  const bottomRect = bottom.getBoundingClientRect();
   const descRect = description.getBoundingClientRect();
+
   const gameResult = new Result();
+  gameResult.setClickListener(() => {
+    startGame();
+  });
 
-  function playSound(sound) {
-    sound.currentTime = 0;
-    sound.play();
-  }
+  const gameBottom = new Bottom(CAT_COUNT, PENGUIN_COUNT);
+  gameBottom.setClickListener((type) => onItemClick(type));
 
-  function pauseSound(sound) {
-    sound.pause();
+  function onItemClick(type) {
+    if (!started) {
+      return;
+    }
+    console.log(type);
+    if (type) {
+      if (type === 'penguin') {
+        finishGame('YOU LOST!', alertSound);
+      } else if (type === 'cat') {
+        counter.innerHTML = --count;
+        if (count === 0) {
+          finishGame('YOU WON!', winSound);
+        }
+      }
+    }
   }
 
   function showStopButton() {
@@ -58,28 +72,6 @@ addEventListener('load', () => {
     }
   }
 
-  function randomNumber(min, max) {
-    return Math.random() * (max - min) + min;
-  }
-
-  function addItem(className, count, path) {
-    const x1 = 0;
-    const y1 = 0;
-    const x2 = bottomRect.width;
-    const y2 = bottomRect.height;
-    for (let i = 0; i < count; i++) {
-      const item = document.createElement('img');
-      item.setAttribute('class', className);
-      item.setAttribute('alt', className);
-      item.setAttribute('src', path);
-      item.setAttribute('data-type', className);
-      const x = randomNumber(x1, x2 - item.width);
-      const y = randomNumber(y1, y2 - item.height);
-      item.style.transform = `translate(${x}px,${y}px)`;
-      bottom.appendChild(item);
-    }
-  }
-
   function startTimer() {
     setTimerText();
     interval = setInterval(setTimerText, 1000);
@@ -89,10 +81,7 @@ addEventListener('load', () => {
   function initGame() {
     time = INITIAL_TIME;
     count = CAT_COUNT;
-
-    bottom.innerHTML = '';
-    addItem('cat', CAT_COUNT, 'img/cat.png');
-    addItem('penguin', PENGUIN_COUNT, 'img/penguin.png');
+    gameBottom.init();
   }
 
   function startGame() {
@@ -134,42 +123,17 @@ addEventListener('load', () => {
     }
   });
 
-  gameResult.setClickListener(() => {
-    startGame();
-  });
+  // bottom.addEventListener('mouseover', ({ target }) => {
+  //   const type = target.dataset.type;
+  //   if (type) {
+  //     target.style.transform += 'scale(1.1)';
+  //   }
+  // });
 
-  bottom.addEventListener('click', ({ target }) => {
-    if (!started) {
-      return;
-    }
-
-    const type = target.dataset.type;
-    if (type) {
-      if (type === 'penguin') {
-        playSound(penguinSound);
-        finishGame('YOU LOST!', alertSound);
-      } else if (type === 'cat') {
-        playSound(catSound);
-        target.remove();
-        counter.innerHTML = --count;
-        if (count === 0) {
-          finishGame('YOU WON!', winSound);
-        }
-      }
-    }
-  });
-
-  bottom.addEventListener('mouseover', ({ target }) => {
-    const type = target.dataset.type;
-    if (type) {
-      target.style.transform += 'scale(1.1)';
-    }
-  });
-
-  bottom.addEventListener('mouseout', ({ target }) => {
-    const type = target.dataset.type;
-    if (type) {
-      target.style.transform = target.style.transform.replace('scale(1.1)', '');
-    }
-  });
+  // bottom.addEventListener('mouseout', ({ target }) => {
+  //   const type = target.dataset.type;
+  //   if (type) {
+  //     target.style.transform = target.style.transform.replace('scale(1.1)', '');
+  //   }
+  // });
 });
