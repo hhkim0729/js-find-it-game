@@ -35,10 +35,12 @@ addEventListener('load', () => {
     }
     if (type) {
       if (type === 'penguin') {
+        sound.playPenguin();
         finishGame('YOU LOST!', false);
       } else if (type === 'cat') {
         counter.innerHTML = --count;
         if (count === 0) {
+          sound.playCat();
           finishGame('YOU WON!', true);
         }
       }
