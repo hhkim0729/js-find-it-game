@@ -27,7 +27,7 @@ addEventListener('load', () => {
   });
 
   const gameBottom = new Bottom(CAT_COUNT, PENGUIN_COUNT);
-  gameBottom.setClickListener((type) => onItemClick(type));
+  gameBottom.setClickListener(onItemClick);
 
   function onItemClick(type) {
     if (!started) {
@@ -35,12 +35,10 @@ addEventListener('load', () => {
     }
     if (type) {
       if (type === 'penguin') {
-        sound.playPenguin();
         finishGame('YOU LOST!', false);
       } else if (type === 'cat') {
         counter.innerHTML = --count;
         if (count === 0) {
-          sound.playCat();
           finishGame('YOU WON!', true);
         }
       }
