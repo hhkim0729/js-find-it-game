@@ -2,17 +2,12 @@
 
 import Result from './result.js';
 import Bottom from './bottom.js';
+import * as sound from './sound.js';
 
 const description = document.querySelector('.description');
 const playBtn = document.querySelector('.play');
 const timer = document.querySelector('.timer');
 const counter = document.querySelector('.counter');
-
-const bgMusic = new Audio('sound/bg.mp3');
-const catSound = new Audio('sound/cat.mp3');
-const penguinSound = new Audio('sound/penguin.mp3');
-const alertSound = new Audio('sound/alert.wav');
-const winSound = new Audio('sound/win.mp3');
 
 const INITIAL_TIME = 10;
 const CAT_COUNT = 10;
@@ -38,14 +33,13 @@ addEventListener('load', () => {
     if (!started) {
       return;
     }
-    console.log(type);
     if (type) {
       if (type === 'penguin') {
-        finishGame('YOU LOST!', alertSound);
+        finishGame('YOU LOST!', false);
       } else if (type === 'cat') {
         counter.innerHTML = --count;
         if (count === 0) {
-          finishGame('YOU WON!', winSound);
+          finishGame('YOU WON!', true);
         }
       }
     }
@@ -68,7 +62,7 @@ addEventListener('load', () => {
   function setTimerText() {
     timer.innerHTML = `0:${time--}`;
     if (time < 0) {
-      finishGame('YOU LOST!', alertSound);
+      finishGame('YOU LOST!', false);
     }
   }
 
@@ -87,17 +81,21 @@ addEventListener('load', () => {
   function startGame() {
     started = true;
     initGame();
-    playSound(bgMusic);
+    sound.playBackground();
     showStopButton();
     startTimer();
   }
 
-  function finishGame(message, sound) {
+  function finishGame(message, win) {
     started = false;
     clearInterval(interval);
-    pauseSound(bgMusic);
-    playSound(sound);
     hideStopButton();
+    sound.stopBackground();
+    if (win) {
+      sound.playWin();
+    } else {
+      sound.playAlert();
+    }
     gameResult.show(message);
   }
 
@@ -117,7 +115,7 @@ addEventListener('load', () => {
 
   playBtn.addEventListener('click', () => {
     if (started) {
-      finishGame('Replay?', alertSound);
+      finishGame('Replay?', false);
     } else {
       startGame();
     }

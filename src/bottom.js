@@ -1,5 +1,7 @@
 'use strict';
 
+import * as sound from './sound.js';
+
 export default class Bottom {
   constructor(catCount, penguinCount) {
     this.catCount = catCount;
@@ -45,10 +47,10 @@ export default class Bottom {
     const type = target.dataset.type;
     if (type) {
       if (type === 'penguin') {
-        playSound(penguinSound);
+        sound.playPenguin();
         this.onItemClick && this.onItemClick(type);
       } else if (type === 'cat') {
-        playSound(catSound);
+        sound.playCat();
         target.remove();
         this.onItemClick && this.onItemClick(type);
       }
