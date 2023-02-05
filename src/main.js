@@ -1,13 +1,9 @@
 'use strict';
 
-import Game from './game.js';
+import GameBuilder from './game.js';
 import Result from './result.js';
 
 const description = document.querySelector('.description');
-
-const INITIAL_TIME = 10;
-const CAT_COUNT = 10;
-const PENGUIN_COUNT = 7;
 
 addEventListener('load', () => {
   const descRect = description.getBoundingClientRect();
@@ -26,7 +22,11 @@ addEventListener('load', () => {
     visibleImg && visibleImg.classList.remove('visible');
   });
 
-  const game = new Game(CAT_COUNT, PENGUIN_COUNT, INITIAL_TIME);
+  const game = new GameBuilder()
+    .withInitialTime(10)
+    .withCatCount(10)
+    .withPenguinCount(7)
+    .build();
   game.setGameStopListener((message) => {
     gameResult.show(message);
   });

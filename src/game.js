@@ -3,7 +3,29 @@
 import Bottom from './bottom.js';
 import * as sound from './sound.js';
 
-export default class Game {
+// Builder Pattern
+export default class GameBuilder {
+  withCatCount(num) {
+    this.catCount = num;
+    return this;
+  }
+
+  withPenguinCount(num) {
+    this.penguinCount = num;
+    return this;
+  }
+
+  withInitialTime(time) {
+    this.initialTime = time;
+    return this;
+  }
+
+  build() {
+    return new Game(this.catCount, this.penguinCount, this.initialTime);
+  }
+}
+
+class Game {
   constructor(catCount, penguinCount, initialTime) {
     this.gameBottom = new Bottom(catCount, penguinCount);
     this.gameBottom.setClickListener(this.onItemClick);
