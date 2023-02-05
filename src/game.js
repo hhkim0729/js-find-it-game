@@ -55,14 +55,19 @@ class Game {
     }
   };
 
-  onItemClick = (type) => {
+  onItemClick = (target) => {
     if (!this.started) {
       return;
     }
+
+    const type = target.dataset.type;
     if (type) {
       if (type === ItemType.penguin) {
+        sound.playPenguin();
         this.finish(Reason.lose);
       } else if (type === ItemType.cat) {
+        sound.playCat();
+        target.remove();
         this.counter.innerHTML = --this.count;
         if (this.count === 0) {
           this.finish(Reason.win);

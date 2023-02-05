@@ -51,17 +51,7 @@ export class Bottom {
   }
 
   onClick = ({ target }) => {
-    const type = target.dataset.type;
-    if (type) {
-      if (type === ItemType.penguin) {
-        sound.playPenguin();
-        this.onItemClick && this.onItemClick(type);
-      } else if (type === ItemType.cat) {
-        sound.playCat();
-        target.remove();
-        this.onItemClick && this.onItemClick(type);
-      }
-    }
+    this.onItemClick && this.onItemClick(target);
   };
 
   onMouseover = ({ target }) => {
