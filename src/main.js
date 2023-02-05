@@ -27,8 +27,8 @@ addEventListener('load', () => {
     .withCatCount(10)
     .withPenguinCount(7)
     .build();
-  game.setGameStopListener((message) => {
-    gameResult.show(message);
+  game.setGameStopListener((reason) => {
+    gameResult.show(reason);
   });
 
   const gameResult = new Result();

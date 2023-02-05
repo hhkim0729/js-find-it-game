@@ -3,6 +3,12 @@
 import Bottom from './bottom.js';
 import * as sound from './sound.js';
 
+const Reason = Object.freeze({
+  win: 'YOU WON!',
+  lose: 'YOU LOST!',
+  stop: 'Replay?',
+});
+
 // Builder Pattern
 export default class GameBuilder {
   withCatCount(num) {
@@ -43,7 +49,7 @@ class Game {
 
   onClickPlayBtn = () => {
     if (this.started) {
-      this.finish('Replay?', false);
+      this.finish(Reason.stop);
     } else {
       this.start();
     }
@@ -55,11 +61,11 @@ class Game {
     }
     if (type) {
       if (type === 'penguin') {
-        this.finish('YOU LOST!', false);
+        this.finish(Reason.lose);
       } else if (type === 'cat') {
         this.counter.innerHTML = --this.count;
         if (this.count === 0) {
-          this.finish('YOU WON!', true);
+          this.finish(Reason.win);
         }
       }
     }
@@ -82,7 +88,7 @@ class Game {
   _setTimerText() {
     this.timer.innerHTML = `0:${this.time--}`;
     if (this.time < 0) {
-      this.finishGame('YOU LOST!', false);
+      this.finishGame(Reason.lose);
     }
   }
 
@@ -110,16 +116,16 @@ class Game {
     this._startTimer();
   }
 
-  finish(message, win) {
+  finish(reason) {
     this.started = false;
     clearInterval(this.interval);
     this._hideStopButton();
     sound.stopBackground();
-    if (win) {
+    if (reason === Reason.win) {
       sound.playWin();
     } else {
       sound.playAlert();
     }
-    this.onGameStop && this.onGameStop(message);
+    this.onGameStop && this.onGameStop(reason);
   }
 }
