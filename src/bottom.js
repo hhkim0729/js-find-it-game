@@ -2,7 +2,12 @@
 
 import * as sound from './sound.js';
 
-export default class Bottom {
+export const ItemType = Object.freeze({
+  cat: 'cat',
+  penguin: 'penguin',
+});
+
+export class Bottom {
   constructor(catCount, penguinCount) {
     this.catCount = catCount;
     this.penguinCount = penguinCount;
@@ -15,8 +20,8 @@ export default class Bottom {
 
   init() {
     this.bottom.innerHTML = '';
-    this._addItem('cat', this.catCount, 'img/cat.png');
-    this._addItem('penguin', this.penguinCount, 'img/penguin.png');
+    this._addItem(ItemType.cat, this.catCount, 'img/cat.png');
+    this._addItem(ItemType.penguin, this.penguinCount, 'img/penguin.png');
   }
 
   setClickListener(onItemClick) {
@@ -48,10 +53,10 @@ export default class Bottom {
   onClick = ({ target }) => {
     const type = target.dataset.type;
     if (type) {
-      if (type === 'penguin') {
+      if (type === ItemType.penguin) {
         sound.playPenguin();
         this.onItemClick && this.onItemClick(type);
-      } else if (type === 'cat') {
+      } else if (type === ItemType.cat) {
         sound.playCat();
         target.remove();
         this.onItemClick && this.onItemClick(type);

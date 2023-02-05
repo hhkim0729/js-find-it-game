@@ -1,6 +1,6 @@
 'use strict';
 
-import Bottom from './bottom.js';
+import { Bottom, ItemType } from './bottom.js';
 import * as sound from './sound.js';
 
 const Reason = Object.freeze({
@@ -60,9 +60,9 @@ class Game {
       return;
     }
     if (type) {
-      if (type === 'penguin') {
+      if (type === ItemType.penguin) {
         this.finish(Reason.lose);
-      } else if (type === 'cat') {
+      } else if (type === ItemType.cat) {
         this.counter.innerHTML = --this.count;
         if (this.count === 0) {
           this.finish(Reason.win);
