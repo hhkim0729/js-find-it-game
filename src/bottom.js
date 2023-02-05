@@ -1,7 +1,5 @@
 'use strict';
 
-import * as sound from './sound.js';
-
 export const ItemType = Object.freeze({
   cat: 'cat',
   penguin: 'penguin',
